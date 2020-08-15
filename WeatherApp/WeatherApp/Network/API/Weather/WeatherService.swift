@@ -28,7 +28,7 @@ class WeatherService {
         defaultQueryParams.forEach {queryParams[$0.key] = $0.value}
         urlComponent?.queryItems = queryParams.map(URLQueryItem.init)
         if let url = urlComponent?.url {
-            SessionManager.shared.defaultSession.dataTask(with: url) { (data, response, error) in
+            let dataTask = SessionManager.shared.defaultSession.dataTask(with: url) { (data, response, error) in
                 
                 if let error = error {
                     completionHandler(error.localizedDescription, nil)
@@ -37,7 +37,7 @@ class WeatherService {
                 
                 guard let response = response as? HTTPURLResponse, response.isSucces else {
                     completionHandler(error?.localizedDescription, nil)
-                   return
+                    return
                 }
                 
                 guard let responseData = data else {
@@ -45,14 +45,21 @@ class WeatherService {
                     return
                 }
                 
-//                let jsonDeocder = JSONDecoder()
-//                do {
-//                    let weatherResponse = try jsonDeocder.decode(Weather.self, from: responseData)
-//                } catch let parseError as NSError {
-//                    print(parseError.userInfo)
-//                    completionHandler("Something went wrong", nil)
-//                }
+                AppDelegate.shared.persistentContainer.performBackgroundTask { (backgroundContext) in
+                    let jsonDeocder = JSONDecoder()
+                    jsonDeocder.dateDecodingStrategy = .secondsSince1970
+                    jsonDeocder.userInfo[CodingUserInfoKey.context!] = backgroundContext
+                    do {
+                        let weatherResponse = try jsonDeocder.decode(Weather.self, from: responseData)
+                        try backgroundContext.save()
+                        completionHandler(nil, weatherResponse)
+                    } catch let parseError as NSError {
+                        print(parseError.userInfo)
+                        completionHandler("Something went wrong", nil)
+                    }
+                }
             }
+            dataTask.resume()
         }
     }
     

@@ -14,7 +14,8 @@ struct SearchResponse: Codable {
     let licence: String
     let osmType, osmID: String
     let boundingbox: [String]
-    let lat, lon, displayName, searchResponseClass: String
+    let lat, lon, displayName : String
+    let searchResponseClass: String?
     let type: String
     let importance: Double
     let icon: String?

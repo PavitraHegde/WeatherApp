@@ -15,10 +15,9 @@ public class Weather: NSManagedObject, Decodable {
     
     enum CodingKeys: String, CodingKey {
         case base
-        case cityId = "cityId"
+        case cityId = "id"
         case cod
         case date = "dt"
-        case id
         case name
         case timezone
         case visibility

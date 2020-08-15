@@ -27,11 +27,11 @@ public class Sys: NSManagedObject, Decodable {
              super.init(entity: entity, insertInto: managedObjectContext)
              let values = try decoder.container(keyedBy: CodingKeys.self)
            
-           id = try values.decode(Int64.self, forKey: .id)
+           id = try values.decodeIfPresent(Int64.self, forKey: .id) ?? -1
            country = try values.decodeIfPresent(String.self, forKey: .country)
            sunrise = try values.decode(Int64.self, forKey: .sunrise)
            sunset = try values.decode(Int64.self, forKey: .sunset)
-            type = try values.decode(Int64.self, forKey: .type)
+           type = try values.decodeIfPresent(Int64.self, forKey: .type) ?? -1
            
            
        }
