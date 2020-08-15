@@ -9,6 +9,8 @@
 import UIKit
 
 class CurrentWeatherViewController: UIViewController {
+    
+    private let weatherService = WeatherService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,9 +19,10 @@ class CurrentWeatherViewController: UIViewController {
     }
     @IBAction func didSelectCity(_ unwindSegue: UIStoryboardSegue) {
         let sourceViewController = unwindSegue.source as! SearchCityViewController
-        print(sourceViewController.selectedSearchItem)
-        
-       
+        if let searchedItem = sourceViewController.selectedSearchItem {
+            weatherService.getCurrentWeather(latitude: searchedItem.lat, longitude: searchedItem.lon) { (error, weather) in
+                
+            }
+        }
     }
-
 }
