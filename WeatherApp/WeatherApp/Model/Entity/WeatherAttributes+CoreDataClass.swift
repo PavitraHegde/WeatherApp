@@ -18,14 +18,19 @@ public class WeatherAttributes: NSManagedObject, Decodable {
         case weatherDescription = "description"
         case icon
     }
-     public required init(from decoder: Decoder) throws {
+    
+    public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
+    }
+    
+    public required convenience init(from decoder: Decoder) throws {
           guard let contextUserInfoKey = CodingUserInfoKey.context,
           let managedObjectContext = decoder.userInfo[contextUserInfoKey] as? NSManagedObjectContext,
               let entity = NSEntityDescription.entity(forEntityName: "WeatherAttributes", in: managedObjectContext)
           else {
               fatalError("decode failure")
           }
-          super.init(entity: entity, insertInto: managedObjectContext)
+          self.init(entity: entity, insertInto: managedObjectContext)
           let values = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try values.decode(Int64.self, forKey: .id)

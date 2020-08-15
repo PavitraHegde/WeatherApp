@@ -11,11 +11,13 @@ import UIKit
 class CurrentWeatherViewController: UIViewController {
     
     private let weatherService = WeatherService()
+    private var weatherList = [Weather]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        fetchWeatherList()
     }
     @IBAction func didSelectCity(_ unwindSegue: UIStoryboardSegue) {
         let sourceViewController = unwindSegue.source as! SearchCityViewController
@@ -24,5 +26,13 @@ class CurrentWeatherViewController: UIViewController {
                 
             }
         }
+    }
+}
+
+extension CurrentWeatherViewController {
+    func fetchWeatherList() {
+        let moc = AppDelegate.shared.persistentContainer.newBackgroundContext()
+        weatherList = Weather.fetchWeatherList(context: moc)
+        print(weatherList.count)
     }
 }

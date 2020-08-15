@@ -29,14 +29,18 @@ public class Weather: NSManagedObject, Decodable {
         
     }
     
-    public required init(from decoder: Decoder) throws {
+    public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
+    }
+    
+    public required convenience init(from decoder: Decoder) throws {
         guard let contextUserInfoKey = CodingUserInfoKey.context,
             let managedObjectContext = decoder.userInfo[contextUserInfoKey] as? NSManagedObjectContext,
             let entity = NSEntityDescription.entity(forEntityName: "Weather", in: managedObjectContext)
             else {
                 fatalError("decode failure")
         }
-        super.init(entity: entity, insertInto: managedObjectContext)
+        self.init(entity: entity, insertInto: managedObjectContext)
         let values = try decoder.container(keyedBy: CodingKeys.self)
         base = try values.decodeIfPresent(String.self, forKey: .base)
         cityId = try values.decodeIfPresent(Int64.self, forKey: .cityId) ?? -1
@@ -51,6 +55,20 @@ public class Weather: NSManagedObject, Decodable {
         sys = try values.decodeIfPresent(Sys.self, forKey: .sys)
         weatherAtrributes = NSSet(array: try values.decode([WeatherAttributes].self, forKey: .weatherAtrributes))
         wind = try values.decodeIfPresent(Wind.self, forKey: .wind)
+    }
+    
+    static func fetchWeatherList(context: NSManagedObjectContext, predicate: NSPredicate? = nil) -> [Weather] {
+        let fetchRequest: NSFetchRequest<Weather> = Weather.fetchRequest()
+        fetchRequest.predicate = predicate
+        var weatherList = [Weather]()
+        context.performAndWait {
+            do {
+                weatherList = try fetchRequest.execute()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return weatherList
     }
 }
 
