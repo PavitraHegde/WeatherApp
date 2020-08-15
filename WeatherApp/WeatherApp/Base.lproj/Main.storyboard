@@ -38,7 +38,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eOa-gO-SQl">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="122" width="414" height="740"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="pOw-11-mux">
@@ -65,12 +65,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zHL-LP-Aaa"/>
                     </view>
-                    <navigationItem key="navigationItem" id="W2J-LY-cEs"/>
+                    <navigationItem key="navigationItem" prompt="Enter city, postcode" id="W2J-LY-cEs">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="sro-cP-9tP">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="qwo-VJ-2hy" id="Fdg-My-BGG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="eOa-gO-SQl" id="Qhl-Ds-XqJ"/>
+                        <segue destination="l5M-rq-ljx" kind="unwind" identifier="didSelectCity" unwindAction="didSelectCity:" id="7uu-sI-FMo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b4V-tk-cnC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="l5M-rq-ljx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2891.304347826087" y="107.14285714285714"/>
         </scene>
