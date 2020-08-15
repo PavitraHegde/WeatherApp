@@ -11,7 +11,7 @@ import Foundation
 class LocationGeocoder {
     
     private let baseURL = "https://eu1.locationiq.com/"
-    private let defaultQueries = ["key" : "pk.de1a8faeffec9dfeb3ba87610fe3f895","format" : "json"]
+    private let defaultQueries = ["key" : "pk.de1a8faeffec9dfeb3ba87610fe3f895","format" : "json", "addressdetails" : "1"]
     private var searchDataTask: URLSessionDataTask?
     
     func startGeocoding(query: String, completionHandler: @escaping (_ errorMessage: String?, _ response: [SearchResponse]?) -> Void)  {

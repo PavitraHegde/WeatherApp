@@ -18,7 +18,7 @@ class SearchCityViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-    var selectedSearchItem: SearchResponse
+    var selectedSearchItem: SearchResponse?
     
     override func viewDidLoad() {
         super.viewDidLoad()
