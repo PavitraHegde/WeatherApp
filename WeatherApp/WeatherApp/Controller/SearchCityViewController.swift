@@ -9,8 +9,9 @@
 import UIKit
 
 class SearchCityViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
+    
     private let searchController = UISearchController()
     private let geocoder = LocationGeocoder()
     private var searchResult: [SearchResponse] = [] {
@@ -20,6 +21,7 @@ class SearchCityViewController: UIViewController {
     }
     var selectedSearchItem: SearchResponse?
     
+    //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         searchController.searchResultsUpdater = self
@@ -29,11 +31,13 @@ class SearchCityViewController: UIViewController {
         definesPresentationContext = true
     }
     
+    //MARK:- IBAction methods
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 }
 
+//MARK:- TableView DataSource methods
 extension SearchCityViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResult.count
@@ -49,12 +53,11 @@ extension SearchCityViewController: UITableViewDataSource {
     
 }
 
+//MARK:- TableView Delegate methods
 extension SearchCityViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedSearchItem = self.searchResult[indexPath.row]
         performSegue(withIdentifier: "didSelectCity", sender: nil)
-        
     }
 }
 

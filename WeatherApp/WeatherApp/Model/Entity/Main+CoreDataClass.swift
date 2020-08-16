@@ -12,7 +12,7 @@ import CoreData
 
 @objc(Main)
 public class Main: NSManagedObject, Decodable {
-
+    
     enum CodingKeys: String, CodingKey {
         case humidity,pressure, temp
         case tempMax = "temp_max"
@@ -27,10 +27,10 @@ public class Main: NSManagedObject, Decodable {
     
     public required convenience init(from decoder: Decoder) throws {
         guard let contextUserInfoKey = CodingUserInfoKey.context,
-        let managedObjectContext = decoder.userInfo[contextUserInfoKey] as? NSManagedObjectContext,
+            let managedObjectContext = decoder.userInfo[contextUserInfoKey] as? NSManagedObjectContext,
             let entity = NSEntityDescription.entity(forEntityName: "Main", in: managedObjectContext)
-        else {
-            fatalError("decode failure")
+            else {
+                fatalError("decode failure")
         }
         self.init(entity: entity, insertInto: managedObjectContext)
         let values = try decoder.container(keyedBy: CodingKeys.self)

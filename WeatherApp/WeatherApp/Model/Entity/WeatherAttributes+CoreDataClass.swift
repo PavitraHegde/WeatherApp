@@ -24,14 +24,14 @@ public class WeatherAttributes: NSManagedObject, Decodable {
     }
     
     public required convenience init(from decoder: Decoder) throws {
-          guard let contextUserInfoKey = CodingUserInfoKey.context,
-          let managedObjectContext = decoder.userInfo[contextUserInfoKey] as? NSManagedObjectContext,
-              let entity = NSEntityDescription.entity(forEntityName: "WeatherAttributes", in: managedObjectContext)
-          else {
-              fatalError("decode failure")
-          }
-          self.init(entity: entity, insertInto: managedObjectContext)
-          let values = try decoder.container(keyedBy: CodingKeys.self)
+        guard let contextUserInfoKey = CodingUserInfoKey.context,
+            let managedObjectContext = decoder.userInfo[contextUserInfoKey] as? NSManagedObjectContext,
+            let entity = NSEntityDescription.entity(forEntityName: "WeatherAttributes", in: managedObjectContext)
+            else {
+                fatalError("decode failure")
+        }
+        self.init(entity: entity, insertInto: managedObjectContext)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try values.decode(Int64.self, forKey: .id)
         desc = try values.decodeIfPresent(String.self, forKey: .weatherDescription)
@@ -40,6 +40,6 @@ public class WeatherAttributes: NSManagedObject, Decodable {
         
         
     }
-        
+    
 }
 

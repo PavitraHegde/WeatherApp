@@ -20,7 +20,6 @@ public class Location: NSManagedObject, Decodable {
     public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
         super.init(entity: entity, insertInto: context)
     }
-    
     public required convenience init(from decoder: Decoder) throws {
         guard let contextUserInfoKey = CodingUserInfoKey.context,
         let managedObjectContext = decoder.userInfo[contextUserInfoKey] as? NSManagedObjectContext,

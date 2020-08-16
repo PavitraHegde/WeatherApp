@@ -81,8 +81,6 @@ public class Weather: NSManagedObject, Decodable {
         return weatherList
     }
     
-    
-    
     func getFormattedTemperature(format: TemperatureFormat) -> Int?{
         
         guard let temp = main?.temp else {
@@ -90,7 +88,7 @@ public class Weather: NSManagedObject, Decodable {
         }
         switch format {
         case .farhenheit:
-           return Int(9/5*(temp - 273) + 32)
+            return Int(9/5*(temp - 273) + 32)
         case .celsius:
             return Int(temp - 273.15)
         }

@@ -36,8 +36,6 @@ public class Sys: NSManagedObject, Decodable {
         sunrise = try values.decodeIfPresent(Int64.self, forKey: .sunrise) ?? -1
         sunset = try values.decodeIfPresent(Int64.self, forKey: .sunset) ?? -1
         type = try values.decodeIfPresent(Int64.self, forKey: .type) ?? -1
-        
-        
     }
     
 }

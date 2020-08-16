@@ -16,7 +16,6 @@ public class WeatherForecast: NSManagedObject, Decodable {
     enum CodingKeys: String, CodingKey {
         case id, city
         case weatherList = "list"
-        
     }
     
     public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {

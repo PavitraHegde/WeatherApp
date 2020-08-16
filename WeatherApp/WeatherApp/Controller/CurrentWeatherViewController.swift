@@ -12,9 +12,9 @@ class CurrentWeatherViewController: UIViewController {
     
     @IBOutlet weak var celsius: UIButton!
     @IBOutlet weak var tableFooterView: UIView!
-    
     @IBOutlet weak var farhenheit: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    
     private let weatherService = WeatherService()
     private var weatherList = [Weather]() {
         didSet {
@@ -29,6 +29,7 @@ class CurrentWeatherViewController: UIViewController {
         }
     }
     
+    //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetup()
@@ -36,6 +37,7 @@ class CurrentWeatherViewController: UIViewController {
         
     }
     
+    //MARK:- IBAction methods
     @IBAction func celsiusButtonTapped(_ sender: UIButton) {
         
         celsius.setTitleColor(.white, for: .normal)
@@ -66,6 +68,7 @@ extension CurrentWeatherViewController {
     }
 }
 
+//MARK:- TableView DataSource methods
 extension CurrentWeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return weatherList.count
@@ -84,13 +87,13 @@ extension CurrentWeatherViewController: UITableViewDataSource {
         cell.time.text = weatherData.getFormattedDate()
         return cell
     }
-    
-    
 }
 
-
+//MARK:- TableView Delegate methods
 extension CurrentWeatherViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "WeatherForecastViewController", sender: nil)
+    }
     
 }
 

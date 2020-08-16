@@ -31,7 +31,6 @@ extension Weather {
     @NSManaged public var weatherAtrributes: NSSet?
     @NSManaged public var wind: Wind?
     @NSManaged public var weatherForecast: WeatherForecast?
-
 }
 
 // MARK: Generated accessors for weatherAtrributes

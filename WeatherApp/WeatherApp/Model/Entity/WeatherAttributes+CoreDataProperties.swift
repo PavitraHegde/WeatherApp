@@ -16,7 +16,6 @@ extension WeatherAttributes {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<WeatherAttributes> {
         return NSFetchRequest<WeatherAttributes>(entityName: "WeatherAttributes")
     }
-
     @NSManaged public var desc: String?
     @NSManaged public var icon: String?
     @NSManaged public var id: Int64

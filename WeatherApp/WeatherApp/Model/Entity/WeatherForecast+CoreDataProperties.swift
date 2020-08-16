@@ -16,11 +16,9 @@ extension WeatherForecast {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<WeatherForecast> {
         return NSFetchRequest<WeatherForecast>(entityName: "WeatherForecast")
     }
-
     @NSManaged public var id: String?
     @NSManaged public var weatherList: NSSet?
     @NSManaged public var city: City?
-
 }
 
 // MARK: Generated accessors for weatherList
