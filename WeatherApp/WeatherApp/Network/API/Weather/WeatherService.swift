@@ -45,19 +45,19 @@ class WeatherService {
                     return
                 }
                 
-                AppDelegate.shared.persistentContainer.performBackgroundTask { (backgroundContext) in
-                    let jsonDeocder = JSONDecoder()
-                    jsonDeocder.dateDecodingStrategy = .secondsSince1970
-                    jsonDeocder.userInfo[CodingUserInfoKey.context!] = backgroundContext
-                    do {
-                        let weatherResponse = try jsonDeocder.decode(Weather.self, from: responseData)
-                        try backgroundContext.save()
-                        completionHandler(nil, weatherResponse)
-                    } catch let parseError as NSError {
-                        print(parseError.userInfo)
-                        completionHandler("Something went wrong", nil)
-                    }
+                let moc = AppDelegate.shared.persistentContainer.viewContext
+                let jsonDeocder = JSONDecoder()
+                jsonDeocder.dateDecodingStrategy = .secondsSince1970
+                jsonDeocder.userInfo[CodingUserInfoKey.context!] = moc
+                do {
+                    let weatherResponse = try jsonDeocder.decode(Weather.self, from: responseData)
+                    try moc.save()
+                    completionHandler(nil, weatherResponse)
+                } catch let parseError as NSError {
+                    print(parseError.userInfo)
+                    completionHandler("Something went wrong", nil)
                 }
+                
             }
             dataTask.resume()
         }

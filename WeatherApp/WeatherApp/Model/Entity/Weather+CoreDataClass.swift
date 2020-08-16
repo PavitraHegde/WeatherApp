@@ -70,8 +70,32 @@ public class Weather: NSManagedObject, Decodable {
         }
         return weatherList
     }
+    
+    enum TemperatureFormat {
+        case celsius
+        case farhenheit
+    }
+    
+    func getFormattedTemperature(format: TemperatureFormat) -> Int?{
+        
+        guard let temp = main?.temp else {
+            return nil
+        }
+        switch format {
+        case .farhenheit:
+           return Int(9/5*(temp - 273) + 32)
+        case .celsius:
+            return Int(temp - 273.15)
+        }
+    }
+    
+    func getFormattedDate() -> String? {
+        guard let date = date else { return nil }
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
 }
-
 
 
 
