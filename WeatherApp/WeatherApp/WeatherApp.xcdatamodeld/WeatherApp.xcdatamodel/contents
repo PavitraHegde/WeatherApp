@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="City" representedClassName="City" syncable="YES">
+        <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="sunrise" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="sunset" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="timezone" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Location" inverseName="city" inverseEntity="Location"/>
+        <relationship name="weatherForecast" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherForecast" inverseName="city" inverseEntity="WeatherForecast"/>
+    </entity>
     <entity name="Location" representedClassName="Location" syncable="YES">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="location" inverseEntity="City"/>
         <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="location" inverseEntity="Weather"/>
     </entity>
     <entity name="Main" representedClassName="Main" syncable="YES">
@@ -35,6 +46,7 @@
         <relationship name="main" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Main" inverseName="weather" inverseEntity="Main"/>
         <relationship name="sys" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sys" inverseName="weather" inverseEntity="Sys"/>
         <relationship name="weatherAtrributes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WeatherAttributes" inverseName="weather" inverseEntity="WeatherAttributes"/>
+        <relationship name="weatherForecast" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherForecast" inverseName="weatherList" inverseEntity="WeatherForecast"/>
         <relationship name="wind" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wind" inverseName="weather" inverseEntity="Wind"/>
     </entity>
     <entity name="WeatherAttributes" representedClassName="WeatherAttributes" syncable="YES">
@@ -44,17 +56,24 @@
         <attribute name="main" optional="YES" attributeType="String"/>
         <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="weatherAtrributes" inverseEntity="Weather"/>
     </entity>
+    <entity name="WeatherForecast" representedClassName="WeatherForecast" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <relationship name="city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="weatherForecast" inverseEntity="City"/>
+        <relationship name="weatherList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Weather" inverseName="weatherForecast" inverseEntity="Weather"/>
+    </entity>
     <entity name="Wind" representedClassName="Wind" syncable="YES">
         <attribute name="deg" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Weather" inverseName="wind" inverseEntity="Weather"/>
     </entity>
     <elements>
-        <element name="Location" positionX="-45" positionY="0" width="128" height="88"/>
+        <element name="Location" positionX="-45" positionY="0" width="128" height="103"/>
         <element name="Main" positionX="9" positionY="90" width="128" height="148"/>
         <element name="Sys" positionX="45" positionY="144" width="128" height="133"/>
-        <element name="Weather" positionX="0" positionY="108" width="128" height="238"/>
+        <element name="Weather" positionX="0" positionY="108" width="128" height="253"/>
         <element name="WeatherAttributes" positionX="-18" positionY="45" width="128" height="118"/>
         <element name="Wind" positionX="27" positionY="117" width="128" height="88"/>
+        <element name="WeatherForecast" positionX="0" positionY="153" width="128" height="88"/>
+        <element name="City" positionX="9" positionY="162" width="128" height="163"/>
     </elements>
 </model>
