@@ -17,6 +17,7 @@ class WeatherService {
     enum WeatherEndPoint: String {
         
         case weather = "weather"
+        case forecast = "forecast"
         
     }
     
@@ -62,5 +63,49 @@ class WeatherService {
             dataTask.resume()
         }
     }
+    
+   func getWeatherForecast(latitude: String, longitude: String, completionHandler: @escaping (_ errorMessage: String?, _ response: WeatherForecast?) -> Void ) {
+        
+    let urlWithPath = "\(baseURL)\(WeatherEndPoint.forecast.rawValue)"
+        var urlComponent = URLComponents(string: urlWithPath)
+        var queryParams = ["lat": latitude, "lon": longitude]
+        defaultQueryParams.forEach {queryParams[$0.key] = $0.value}
+        urlComponent?.queryItems = queryParams.map(URLQueryItem.init)
+        if let url = urlComponent?.url {
+            let dataTask = SessionManager.shared.defaultSession.dataTask(with: url) { (data, response, error) in
+                
+                if let error = error {
+                    completionHandler(error.localizedDescription, nil)
+                    return
+                }
+                
+                guard let response = response as? HTTPURLResponse, response.isSucces else {
+                    completionHandler(error?.localizedDescription, nil)
+                    return
+                }
+                
+                guard let responseData = data else {
+                    completionHandler("No Data", nil)
+                    return
+                }
+                
+                let moc = AppDelegate.shared.persistentContainer.viewContext
+                let jsonDeocder = JSONDecoder()
+                jsonDeocder.dateDecodingStrategy = .secondsSince1970
+                jsonDeocder.userInfo[CodingUserInfoKey.context!] = moc
+                do {
+                    let weatherForecastResponse = try jsonDeocder.decode(WeatherForecast.self, from: responseData)
+                    try moc.save()
+                    completionHandler(nil, weatherForecastResponse)
+                } catch let parseError as NSError {
+                    print(parseError.userInfo)
+                    completionHandler("Something went wrong", nil)
+                }
+                
+            }
+            dataTask.resume()
+        }
+    }
+    
     
 }

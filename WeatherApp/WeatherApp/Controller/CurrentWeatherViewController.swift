@@ -53,14 +53,7 @@ class CurrentWeatherViewController: UIViewController {
     @IBAction func didSelectCity(_ unwindSegue: UIStoryboardSegue) {
         let sourceViewController = unwindSegue.source as! SearchCityViewController
         if let searchedItem = sourceViewController.selectedSearchItem {
-            weatherService.getCurrentWeather(latitude: searchedItem.lat, longitude: searchedItem.lon) { (error, weather) in
-                
-                if let error = error {
-                    print(error)
-                } else {
-                    self.weatherList.append(weather!)
-                }
-            }
+            fetchWeatherInfo(selectedCity: searchedItem)
         }
     }
 }
@@ -68,7 +61,7 @@ class CurrentWeatherViewController: UIViewController {
 extension CurrentWeatherViewController {
     func fetchWeatherList() {
         let moc = AppDelegate.shared.persistentContainer.viewContext
-        weatherList = Weather.fetchWeatherList(context: moc)
+        weatherList = Weather.fetchCurrentWeatherList(context: moc)
         print(weatherList.count)
     }
 }
@@ -98,6 +91,7 @@ extension CurrentWeatherViewController: UITableViewDataSource {
 
 extension CurrentWeatherViewController: UITableViewDelegate {
     
+    
 }
 
 extension CurrentWeatherViewController {
@@ -106,5 +100,34 @@ extension CurrentWeatherViewController {
         tableView.register(nib, forCellReuseIdentifier: "CurrentWeatherTableViewCell")
         tableView.tableFooterView = tableFooterView
         
+    }
+}
+
+
+extension CurrentWeatherViewController {
+    private func fetchWeatherInfo(selectedCity: SearchResponse) {
+        fetchCurrentWeatherInfo(lat: selectedCity.lat, lon: selectedCity.lon)
+        fetchWeatherForecast(lat: selectedCity.lat, lon: selectedCity.lon)
+    }
+    
+    private func fetchCurrentWeatherInfo(lat: String, lon: String) {
+        weatherService.getCurrentWeather(latitude: lat, longitude: lon) { (error, weather) in
+            if let error = error {
+                print(error)
+            } else {
+                self.weatherList.append(weather!)
+            }
+        }
+        
+    }
+    
+    private func fetchWeatherForecast(lat: String, lon: String) {
+        weatherService.getWeatherForecast(latitude: lat, longitude: lon) { (error, weatherForecast) in
+            if let error = error {
+                print(error)
+            } else {
+                
+            }
+        }
     }
 }

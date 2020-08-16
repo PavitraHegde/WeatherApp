@@ -13,6 +13,11 @@ import CoreData
 @objc(Weather)
 public class Weather: NSManagedObject, Decodable {
     
+    enum TemperatureFormat {
+        case celsius
+        case farhenheit
+    }
+    
     enum CodingKeys: String, CodingKey {
         case base
         case cityId = "id"
@@ -57,6 +62,11 @@ public class Weather: NSManagedObject, Decodable {
         wind = try values.decodeIfPresent(Wind.self, forKey: .wind)
     }
     
+    static func fetchCurrentWeatherList(context: NSManagedObjectContext) -> [Weather] {
+        let predicate = NSPredicate(format: "weatherForecast == nil")
+        return fetchWeatherList(context: context, predicate: predicate)
+    }
+    
     static func fetchWeatherList(context: NSManagedObjectContext, predicate: NSPredicate? = nil) -> [Weather] {
         let fetchRequest: NSFetchRequest<Weather> = Weather.fetchRequest()
         fetchRequest.predicate = predicate
@@ -71,10 +81,7 @@ public class Weather: NSManagedObject, Decodable {
         return weatherList
     }
     
-    enum TemperatureFormat {
-        case celsius
-        case farhenheit
-    }
+    
     
     func getFormattedTemperature(format: TemperatureFormat) -> Int?{
         

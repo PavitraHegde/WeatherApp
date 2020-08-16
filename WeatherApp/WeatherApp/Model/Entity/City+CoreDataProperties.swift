@@ -17,7 +17,7 @@ extension City {
         return NSFetchRequest<City>(entityName: "City")
     }
 
-    @NSManaged public var id: String?
+    @NSManaged public var id: Int64
     @NSManaged public var name: String?
     @NSManaged public var country: String?
     @NSManaged public var timezone: Int64

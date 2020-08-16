@@ -33,8 +33,8 @@ public class Sys: NSManagedObject, Decodable {
         
         id = try values.decodeIfPresent(Int64.self, forKey: .id) ?? -1
         country = try values.decodeIfPresent(String.self, forKey: .country)
-        sunrise = try values.decode(Int64.self, forKey: .sunrise)
-        sunset = try values.decode(Int64.self, forKey: .sunset)
+        sunrise = try values.decodeIfPresent(Int64.self, forKey: .sunrise) ?? -1
+        sunset = try values.decodeIfPresent(Int64.self, forKey: .sunset) ?? -1
         type = try values.decodeIfPresent(Int64.self, forKey: .type) ?? -1
         
         
