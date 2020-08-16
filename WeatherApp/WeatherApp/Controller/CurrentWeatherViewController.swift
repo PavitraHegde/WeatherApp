@@ -33,7 +33,7 @@ class CurrentWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetup()
-        fetchWeatherList()
+        fetchWeatherList(shouldFetchLatestWeatherInfo: true)
         
     }
     
@@ -61,10 +61,24 @@ class CurrentWeatherViewController: UIViewController {
 }
 
 extension CurrentWeatherViewController {
-    func fetchWeatherList() {
+    
+    func fetchWeatherList(shouldFetchLatestWeatherInfo: Bool) {
         let moc = AppDelegate.shared.persistentContainer.viewContext
         weatherList = Weather.fetchCurrentWeatherList(context: moc)
-        print(weatherList.count)
+        guard shouldFetchLatestWeatherInfo, weatherList.count > 0 else {
+           return
+        }
+        fetchUpdatedWeatherList(cityIdList: weatherList.map{$0.cityId.description})
+    }
+    
+    func fetchUpdatedWeatherList(cityIdList: [String]) {
+        weatherService.getCurrentWeatherListByCityIds(cityIdList) { (error, response) in
+            if let error = error {
+                print(error)
+            } else {
+                self.fetchWeatherList(shouldFetchLatestWeatherInfo: false)
+            }
+        }
     }
 }
 

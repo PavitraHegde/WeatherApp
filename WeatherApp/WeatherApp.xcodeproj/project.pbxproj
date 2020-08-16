@@ -46,6 +46,7 @@
 		59E404FE24E96BDC00905A55 /* WeatherForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59E404FC24E96BDC00905A55 /* WeatherForecastTableViewCell.xib */; };
 		59E4050124E96F8C00905A55 /* WeatherForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E404FF24E96F8C00905A55 /* WeatherForecastCollectionViewCell.swift */; };
 		59E4050224E96F8C00905A55 /* WeatherForecastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59E4050024E96F8C00905A55 /* WeatherForecastCollectionViewCell.xib */; };
+		59E4050424E9990900905A55 /* CityListWeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E4050324E9990900905A55 /* CityListWeatherResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		59E404FC24E96BDC00905A55 /* WeatherForecastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherForecastTableViewCell.xib; sourceTree = "<group>"; };
 		59E404FF24E96F8C00905A55 /* WeatherForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastCollectionViewCell.swift; sourceTree = "<group>"; };
 		59E4050024E96F8C00905A55 /* WeatherForecastCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherForecastCollectionViewCell.xib; sourceTree = "<group>"; };
+		59E4050324E9990900905A55 /* CityListWeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListWeatherResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 			children = (
 				59E404C924E8171E00905A55 /* Entity */,
 				59592A7224E7AFDC00FBE168 /* SearchResponse.swift */,
+				59E4050324E9990900905A55 /* CityListWeatherResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				59592A7724E7B25F00FBE168 /* LocationGeocoder.swift in Sources */,
 				59E404DF24E8176000905A55 /* Main+CoreDataProperties.swift in Sources */,
 				59E404DC24E8176000905A55 /* Wind+CoreDataClass.swift in Sources */,
+				59E4050424E9990900905A55 /* CityListWeatherResponse.swift in Sources */,
 				59592A5524E6ACC600FBE168 /* AppDelegate.swift in Sources */,
 				59592A8224E7E84000FBE168 /* WeatherService.swift in Sources */,
 				59E404EC24E906C100905A55 /* Button+Extension.swift in Sources */,

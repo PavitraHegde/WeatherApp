@@ -19,6 +19,10 @@ class WeatherForecastViewController: UIViewController {
         super.viewDidLoad()
         self.initialSetup()
     }
+    
+    @IBAction func backButtonTapped(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 //MARK:- TableView DataSourcse Methods

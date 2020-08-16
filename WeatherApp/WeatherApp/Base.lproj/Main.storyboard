@@ -187,13 +187,29 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NXC-Q1-ToH">
+                                        <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="89f-jH-gCx"/>
+                                            <constraint firstAttribute="height" constant="30" id="nLw-e7-hHu"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="chevron.left.circle.fill" catalog="system">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonTapped:" destination="iBP-RD-8oc" eventType="touchUpInside" id="S46-n8-g6D"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.41960784313725491" green="0.51372549019607838" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="moe-dK-yQF" firstAttribute="top" secondItem="I3E-ao-0B2" secondAttribute="bottom" constant="8" id="2Mq-cj-jfa"/>
+                                    <constraint firstItem="NXC-Q1-ToH" firstAttribute="top" secondItem="fsK-iT-2mk" secondAttribute="top" constant="8" id="LRA-6g-XO7"/>
                                     <constraint firstAttribute="height" constant="100" id="WI5-GC-aw1"/>
                                     <constraint firstItem="I3E-ao-0B2" firstAttribute="top" secondItem="fsK-iT-2mk" secondAttribute="top" constant="20" id="aX2-zD-pYl"/>
                                     <constraint firstItem="moe-dK-yQF" firstAttribute="centerX" secondItem="fsK-iT-2mk" secondAttribute="centerX" id="gQh-Cw-XZV"/>
+                                    <constraint firstItem="NXC-Q1-ToH" firstAttribute="leading" secondItem="fsK-iT-2mk" secondAttribute="leading" constant="8" id="yJD-5d-2Lm"/>
                                     <constraint firstItem="I3E-ao-0B2" firstAttribute="centerX" secondItem="fsK-iT-2mk" secondAttribute="centerX" id="ytX-eZ-MxP"/>
                                 </constraints>
                             </view>
@@ -360,6 +376,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.left.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus.circle" catalog="system" width="128" height="121"/>
     </resources>
 </document>

@@ -100,7 +100,17 @@ public class Weather: NSManagedObject, Decodable {
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
+    
+    static func deleteCurrentWeatherList(context: NSManagedObjectContext) {
+        fetchCurrentWeatherList(context: context).forEach { (weather) in
+            context.delete(weather)
+        }
+        do {
+            try context.save()
+        } catch  {
+            print("delete failed :\(error.localizedDescription)")
+        }
+    }
+
 }
-
-
 
